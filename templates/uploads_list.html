@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="uploads-section">
+        <h1>Uploaded Files</h1>
+        <p class="subtitle">View all files uploaded for forensic analysis</p>
+        
+        {% if files %}
+            <div class="files-table-container">
+                <table class="files-table">
+                    <thead>
+                        <tr>
+                            <th>Filename</th>
+                            <th>Size</th>
+                            <th>Upload Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <td class="filename">{{ file.name }}</td>
+                            <td class="filesize">{{ "%.2f"|format(file.size / 1024 / 1024) }} MB</td>
+                            <td class="upload-time">{{ file.upload_time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="files-summary">
+                <p><strong>Total Files:</strong> {{ files|length }}</p>
+                <p><strong>Total Size:</strong> {{ "%.2f"|format(files|sum(attribute='size') / 1024 / 1024) }} MB</p>
+            </div>
+        {% else %}
+            <div class="no-files">
+                <svg class="no-files-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13,2 13,9 20,9"></polyline>
+                </svg>
+                <h3>No files uploaded yet</h3>
+                <p>Start by uploading your first file for forensic analysis.</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Upload First File</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

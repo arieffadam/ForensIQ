@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="success-section">
+        <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20,6 9,17 4,12"></polyline>
+            </svg>
+        </div>
+        
+        <h1>File Uploaded Successfully!</h1>
+        
+        <div class="file-details">
+            <h3>Upload Details:</h3>
+            <table class="details-table">
+                <tr>
+                    <td><strong>Original Filename:</strong></td>
+                    <td>{{ filename }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Saved As:</strong></td>
+                    <td>{{ saved_filename }}</td>
+                </tr>
+                <tr>
+                    <td><strong>File Size:</strong></td>
+                    <td>{{ "%.2f"|format(file_size / 1024 / 1024) }} MB</td>
+                </tr>
+                <tr>
+                    <td><strong>Upload Time:</strong></td>
+                    <td>{{ upload_time }}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">Upload Another File</a>
+            <a href="{{ url_for('list_uploads') }}" class="btn btn-secondary">View All Files</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
